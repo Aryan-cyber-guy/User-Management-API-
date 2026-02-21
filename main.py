@@ -23,6 +23,10 @@ base.metadata.create_all(bind=engine)
 def greet():
     return {"message":"It's working"}
 
+@app.get("/users")
+def get_all_users(db: Session = Depends(get_db)):
+    return db.query(Db_users).all()
+
 # Get a specific user
 @app.get("/users/{uid}")
 def get_user(uid: int, db : Session = Depends(get_db)):
